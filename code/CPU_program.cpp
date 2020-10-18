@@ -17,18 +17,25 @@ void CPU_program :: get_instruction(){
   if (file.is_open()){
     file.seekg (size_inst);
     eof = !getline(file, inst);
-    size_inst += inst.size()+1;
-
-    instruction.getinst(inst);
-    if (eof) {
-      instruction.getinst("NOP 0 0");
-      instruction_ptr = -1;
-      size_inst = 0;
+    if (!eof){
+      size_inst += inst.size()+1;
+      instruction.getinst(inst);
+      instruction_ptr += 1;
       return;
     }
-    instruction_ptr += 1;
+    else {
+        file.close();
+        file.open(path);
+        size_inst = 0;
+        file.seekg (size_inst);
+        getline(file, inst);
+        instruction.getinst(inst);
+        size_inst += inst.size()+1;
+        instruction_ptr = 0;
+        return;
+    }
   }
-  else cout << "ERROR" << endl;
+  else cout << "PROGRAM NOT FOUND !!" << endl;
 }
 
 void CPU_program :: assignment(){

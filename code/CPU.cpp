@@ -8,6 +8,7 @@ CPU :: CPU(){
   valid = false;
   CPU_path = "nono";
   program_path = "NULL";
+  active_core = 0;
 }
 
 double CPU :: write(){
@@ -26,14 +27,30 @@ double CPU :: write(){
 }
 
 void CPU :: simulate(){
+  double res;
+
   for(unsigned int i = 0; i < frequency ; i++){
     program.get_path(program_path);
     program.get_instruction();
-    program.assignment();
-    double res = 0; //= core.calculate(program.instruction.operation,program.instruction.operand1,program.instruction.operand2);
-    data_in.data = res;
-    reg.read(data_in);
-    reg.print_reg();
+
+    if (program.eof){
+      core[active_core].valid = false;
+      if (active_core < nb_core-1){
+        active_core += 1;
+        core[active_core].valid = true;
+      }
+      else
+        break;
+    }
+
+    if (core[active_core].valid){
+      program.assignment();
+      core[active_core].print();
+      res = core[active_core].calculate(program.instruction.operation,program.instruction.operand1,program.instruction.operand2);
+      data_in.data = res;
+      reg.read(data_in);
+      reg.print_reg();
+    }
   }
 }
 
@@ -64,7 +81,7 @@ void CPU :: initialisation(){
       }
       else if(caract.find("PROGRAM") == 0){
         n = caract.find(":");
-        program_path = "../" + caract.substr(n+1);
+        program_path = "../" + caract.substr(n+2);
       }
       else cout << "NOT COMPATIBLE FILE" << endl;
     }
@@ -74,7 +91,12 @@ void CPU :: initialisation(){
 }
 
 void CPU :: creat_cores(){
-  core.resize(nb_core);
+  core = new Core [nb_core];
+  for (unsigned int i = 0; i<nb_core; i++){
+    core[i].num(i+1);
+    core[i].valid = false;
+  }
+  core[0].valid = true;
 }
 
 void CPU :: print(){

@@ -17,7 +17,8 @@ class CPU {
     unsigned int nb_core;
     string program_path;
 
-    vector<Core> core;
+    unsigned int active_core;
+    Core* core;
     CPU_register reg;
     CPU_program program;
     Data data_in;

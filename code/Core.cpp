@@ -18,6 +18,10 @@ double Core :: calculate(string operation, double op1, double op2){
   else return result = -1998;
 }
 
+void Core :: num(unsigned int i){
+  num_core = i;
+}
+
 void Core :: print(){
-  cout << "The result is: " << result << endl;
+  cout << "le num du core qui calcule : " << num_core << endl;
 }

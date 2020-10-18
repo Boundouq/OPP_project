@@ -1,8 +1,11 @@
 #include "Platform.hpp"
 
-Platform :: Platform(){
+Platform :: Platform(string pth){
   path = "NULL";
   nb_cpu_bus_mem = 0;
+  get_path(pth);
+  get_nb_of_each_element();
+  creat_elements();
 }
 
 void Platform :: get_path(string pth){
@@ -28,7 +31,7 @@ void Platform :: get_nb_of_each_element(){
 void Platform :: creat_elements(){
   string :: size_type n;
   int i = 0;
-  cpus.resize(nb_cpu_bus_mem);
+  cpus= new CPU [nb_cpu_bus_mem];
 
 
   for (auto elm: elements_path){
@@ -45,5 +48,11 @@ void Platform :: creat_elements(){
   }
   for (unsigned int j = 0; j < nb_cpu_bus_mem ;j++){
     cpus[j].print();
+  }
+}
+
+void Platform :: simulate(){
+  for (unsigned int i = 0; i<nb_cpu_bus_mem; i++){
+    cpus[i].simulate();
   }
 }

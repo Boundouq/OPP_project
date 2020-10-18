@@ -38,7 +38,7 @@ double FIFO :: dequeue(){
 
 void FIFO:: print(){
   Data* out = head;
-
+ cout << "FIFO Register Values :" << endl;
   while (out != NULL) {
     cout << out -> data << endl;
     out = out -> next;

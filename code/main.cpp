@@ -103,11 +103,20 @@ int main(){
 */
 
 int main(){
-  Platform Pf;
+
   string path;
   std::cout << "add path" << '\n';
   cin >> path;
-  Pf.get_path(path);
-  Pf.get_nb_of_each_element();
-  Pf.creat_elements();
+  Platform Pf(path);
+  Pf.simulate();
+  Pf.simulate();
+  Pf.simulate();
+  Pf.simulate();
+  Pf.simulate();
+  Pf.simulate();
+  Pf.simulate();
+  Pf.simulate();
+  Pf.simulate();
+  Pf.simulate();
+
 }

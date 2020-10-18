@@ -11,11 +11,12 @@ class Platform{
     string path;
     unsigned int nb_cpu_bus_mem;
     vector<string> elements_path;
-    vector<CPU> cpus;
+    CPU* cpus;
 
   public:
-    Platform();
+    Platform(string pth);
     void get_path(string pth);
     void get_nb_of_each_element();
     void creat_elements();
+    void simulate();
 };
