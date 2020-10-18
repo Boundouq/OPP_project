@@ -81,7 +81,7 @@ void CPU :: initialisation(){
       }
       else if(caract.find("PROGRAM") == 0){
         n = caract.find(":");
-        program_path = "../" + caract.substr(n+2);
+        program_path = "" + caract.substr(n+2);
       }
       else cout << "NOT COMPATIBLE FILE" << endl;
     }

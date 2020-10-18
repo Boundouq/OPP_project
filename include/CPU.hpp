@@ -29,7 +29,7 @@ class CPU {
     void get_cpu_path(string cpu_path);
     double write();
     void simulate();
-    void isEmpty();
+    bool isEmpty();
     void initialisation();
     void creat_cores();
     void print();

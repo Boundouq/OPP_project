@@ -40,7 +40,7 @@ void Platform :: creat_elements(){
       cout << "not found\n";
     }
     else {
-      cpus[i].get_cpu_path("../" + elm);
+      cpus[i].get_cpu_path("" + elm);
       cpus[i].initialisation();
       cpus[i].creat_cores();
       i++;
