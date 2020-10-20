@@ -23,8 +23,10 @@ int main ( int argc, char *argv[] ) {
         if(argc == 2) {
           file_path = argv[1];
         }
+
         Platform Pf(file_path);
         file.open(file_path);
+
     /* boucle infinie : lit puis execute une cmd en boucle */
     while ( 1 ) {
       if (file.is_open()){
@@ -41,6 +43,7 @@ int main ( int argc, char *argv[] ) {
         else
           cout << "\033[1;33m==>  Check Your Command !\033[0m" << endl;
       }
+      else cout<<"erreur" << endl;
     }
     cout << "\033[1;31mSHOULD NEVER BE HERE \033[0m" << endl;
 }

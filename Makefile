@@ -16,7 +16,7 @@ TARGET = simulPlatform
 CC = g++
 RM = rm
 INCLUDE =-I $(INCDIR)
-CFLAGS  = -g -Wall -Werror $(INCLUDE)
+CFLAGS  = -std=c++11 -Wall -Werror $(INCLUDE)
 
 
 SRCDIR=src

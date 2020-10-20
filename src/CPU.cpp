@@ -12,13 +12,11 @@ CPU :: CPU(){
 }
 
 double CPU :: write(){
-  if (reg.empty_reg()){
-    valid = false;
+  if (valid){
     cout << -1998 << endl;
     return -1998;
   }
   else{
-    valid = true;
     out_result = reg.write();
     reg.print_reg();
     cout << out_result << endl;
@@ -108,5 +106,6 @@ void CPU :: print(){
 }
 
 bool CPU :: isEmpty(){
-  return reg.empty_reg();
+  valid = reg.empty_reg();
+  return valid;
 }
