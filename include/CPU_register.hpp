@@ -1,18 +1,22 @@
 #include <iostream>
 #include <string>
-#include "FIFO.hpp"
 
 using namespace std;
 
+struct Data{
+  double data;
+  Data* next;
+};
 
-class CPU_register {
+class CPU_register{
   private:
-    FIFO fifo;
+    Data * head;
+    Data * tail;
 
   public:
     CPU_register();
     bool empty_reg();
-    void read(Data new_data);
+    void read(Data new_Data);
     double write();
     void print_reg();
 };

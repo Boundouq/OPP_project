@@ -5,10 +5,11 @@
 #include <vector>
 #include <fstream>
 #include "memory.hpp"
+#include "interface.hpp"
 
 using namespace std;
 
-class DISPLAY{
+class DISPLAY : public INTERFACE {
 
 private:
   string DISP_path;

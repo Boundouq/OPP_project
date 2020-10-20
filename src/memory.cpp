@@ -146,6 +146,10 @@ void MEMORY::read_from_bus(vector <double> element){
    sauv_bus = element;
 }
 
+string MEMORY::get_label(){
+  return label;
+}
+
 //il faudra une classe qui lira le fichier texte et en fonction du nombre de composants fera appel aux classes
 //rethink about that
 //invalid data value = bool true false

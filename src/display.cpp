@@ -71,7 +71,7 @@ indice_mem=-1;
   }
 
   void DISPLAY::get_indice_mem(MEMORY mem){
-    if(mem.label==source) indice_mem = mem.num_mem_return() ;
+    if(mem.get_label()==source) indice_mem = mem.num_mem_return() ;
 
   }
 

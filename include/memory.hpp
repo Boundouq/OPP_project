@@ -8,10 +8,11 @@
 #include <vector>
 #include <fstream>
 #include"bus.hpp"
+#include "interface.hpp"
 
 using namespace std;
 
-class MEMORY {
+class MEMORY : public INTERFACE {
 private:
   string MEM_path;
   string source;
@@ -40,7 +41,7 @@ public:
   bool remove();
   void get_mem_path(string mem_path);
   void initialisation();
-  //void read();
+  string get_label();
   double write_in_disp();
   void simulate();
   void print();

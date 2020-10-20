@@ -6,10 +6,11 @@
 #include <sstream>
 #include <vector>
 #include <fstream>
+#include "interface.hpp"
 
 using namespace std;
 
-class BUS{
+class BUS : public INTERFACE{
 private:
   string BUS_path;
   string source;

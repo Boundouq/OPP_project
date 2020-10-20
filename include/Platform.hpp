@@ -6,10 +6,11 @@
 #include "memory.hpp"
 #include "bus.hpp"
 #include "display.hpp"
+#include "interface.hpp"
 
 using namespace std;
 
-class Platform{
+class Platform : public INTERFACE{
   private:
     string path;
     unsigned int nb_cpu_bus_mem;

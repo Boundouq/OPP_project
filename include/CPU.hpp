@@ -6,10 +6,11 @@
 #include "Core.hpp"
 #include "CPU_register.hpp"
 #include "CPU_program.hpp"
+#include "interface.hpp"
 
 using namespace std;
 
-class CPU {
+class CPU : public INTERFACE {
   private:
     string CPU_path;
     string label;

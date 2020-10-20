@@ -4,7 +4,6 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-//#include "MSG.hpp"
 #include "Platform.hpp"
 
 //Programme principal
