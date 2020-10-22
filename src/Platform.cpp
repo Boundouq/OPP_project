@@ -165,7 +165,7 @@ void Platform::link_bus_mem(int i){
 
 void Platform::link_cpu_bus(int i){
   vector<double> v;
-  for(int j =0;j<busses[i].get_width();j++){
+  for(unsigned int j =0;j<busses[i].get_width();j++){
     if(!cpus[i].isEmpty()) v.push_back(cpus[i].write());
     else return;
   }

@@ -9,7 +9,7 @@ BUS::BUS(){
 
 void BUS::simulate(){
     cout << "simulation bus en cours" << endl;
-    for(int i=0; i<(this->pending_values).size(); i++) {
+    for(unsigned int i=0; i<(this->pending_values).size(); i++) {
       ready_values.push_back(pending_values[i]);
       cout << ready_values[i] << endl;
     }

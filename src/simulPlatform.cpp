@@ -15,6 +15,7 @@ int main ( int argc, char *argv[] ) {
     fstream file;
     int nb_it;
     string cmd0;
+    int cntr = 0;
 
         if ( argc > 3 || (argc < 3) ) {
             cout << "\033[1;31mTO MUCH / FEW ARGUMENTS \033[0m" << endl;
@@ -35,16 +36,20 @@ int main ( int argc, char *argv[] ) {
     while ( 1 ) {
       if (file.is_open()){
         if(cmd0 == "y") {
-          for(unsigned int i=0;i<nb_it;i++) Pf.simulate();
+          for(int i=0;i<nb_it;i++) Pf.simulate();
           return 1;
         }
         else if (cmd0 == "n") {
+          if (cntr == nb_it) return 1;
           cout << "\033[1;32mTWO OPTION ARE POSSIBLE: > simulate(s) , > quit(q) \033[0m" << endl;
           cout << "\033[1;36m" << PROMPT_STRING <<"\033[0m";
           cin >> command;
           cout <<endl;
-          if (command == "simulate" || command == "s" )
+          if (command == "simulate" || command == "s" ){
             Pf.simulate();
+            cntr += 1;
+          }
+
           else if( command == "quit" || command == "q"){
             cout << "\033[1;32mBye bye ! \033[0m" << endl;
             return(0);
