@@ -18,15 +18,18 @@ private:
   int counter;
   unsigned int indice_mem;
   vector <double> cache_disp;
+  bool valid_print;
 public:
 
   DISPLAY();
+  ~DISPLAY();
   void get_disp_path(string disp_path);
   void simulate();
   void initialisation();
-  void print();
   void read_from_mem(double element);
-  // void read(MEMORY memo);
   void get_indice_mem(MEMORY mem);
   unsigned int indice_mem_return();
+  void print_details();
+  void valid_print_details();
+  int get_counter();
 };

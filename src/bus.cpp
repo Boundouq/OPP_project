@@ -1,21 +1,25 @@
 #include "bus.hpp"
 
 BUS::BUS(){
-  //BUS_path= "testdata/bus1.txt";
+  BUS_path= "NULL";
   source= "NULL";
   label= "NULL";
 }
 
+BUS :: ~BUS(){}
 
 void BUS::simulate(){
-    cout << "simulation bus en cours" << endl;
-    for(unsigned int i=0; i<(this->pending_values).size(); i++) {
+  print_details();
+  for(unsigned int i=0; i< pending_values.size(); i++) {
+    if (pending_values.size()){
       ready_values.push_back(pending_values[i]);
-      cout << ready_values[i] << endl;
     }
-    for (double elm:intermediate) pending_values.push_back(elm);
-    intermediate.clear();
+    else break;
   }
+  pending_values.clear();
+  pending_values = intermediate;
+  intermediate.clear();
+}
 
 void BUS::get_bus_path(string bus_path){
     BUS_path = bus_path;
@@ -50,30 +54,36 @@ void BUS::initialisation(){
 
   }
 
-  void BUS :: print(){
-    cout << "path : " << BUS_path << endl;
-    cout << "Label : " <<label << endl;
-    cout << "source : " <<source << endl;
-    cout << "width : " <<width << endl;
-  }
-
-  vector <double> BUS::write_in_mem(){
+vector <double> BUS::write_in_mem(){
     vector <double> inter;
     inter = ready_values;
     ready_values.clear();
     return inter;
   }
 
-  void BUS::read_from_cpu(vector <double> vect){
+void BUS::read_from_cpu(vector <double> vect){
+    intermediate.clear();
     intermediate = vect;
   }
 
-  bool BUS::bus_is_empty(){
+bool BUS::bus_is_empty(){
     if (ready_values.size() == 0) valid = true;
     else valid = false;
     return valid;
   }
 
-  unsigned int BUS::get_width(){
+unsigned int BUS::get_width(){
     return width;
+}
+
+void BUS :: valid_print_details(){
+  valid_print = true;
+}
+
+void BUS :: print_details(){
+  if (valid_print){
+    cout << "\033[34;1mBUS Label: "<< "\t\t\t"<<label << "\033[0m"<< endl;
+    cout << "\033[34;1mNumber of accesses: "<< "\t\t"<< width << "\033[0m"<< endl;
+    cout << endl;
   }
+}

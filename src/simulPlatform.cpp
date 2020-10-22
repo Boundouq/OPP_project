@@ -10,15 +10,17 @@
 int main ( int argc, char *argv[] ) {
     cout << "\033[1;32mUn message INFO_MSG : Debut du programme \033[0m" << "\033[1;32m" <<argv[0]  <<"\033[0m" << endl; /* macro INFO_MSG */
     cout << "\033[1;33mUn message WARNING_MSG !\033[0m" << endl; /* macro INFO_MSG */
+    cout << endl;
     string file_path;
     string command;
     fstream file;
     int nb_it;
     string cmd0;
     int cntr = 0;
+    string verbose;
 
         if ( argc > 3 || (argc < 3) ) {
-            cout << "\033[1;31mTO MUCH / FEW ARGUMENTS \033[0m" << endl;
+            cout << "\033[5m\033[1;31mTO MUCH / FEW ARGUMENTS \033[0m" << endl;
             cout << "\033[1;33mUsage : similPlatform <Platform_path> <number_iteration>\033[0m" << endl;
             return(0);
         }
@@ -29,6 +31,10 @@ int main ( int argc, char *argv[] ) {
 
         Platform Pf(file_path);
         file.open(file_path);
+        cout << "\033[1;32mDO YOU WANNA SEE SIMULATION DETAILS ? <y/n>\033[0m" << endl;
+        cout << "\033[1;36m" << PROMPT_STRING <<"\033[0m";
+        cin >> verbose;
+        if (verbose == "y") Pf.valid_print_details();
         cout << "\033[1;32mEXECUTE ALL NUMBER OF ITERATIONS SIMULATIONS AT ONCE ? <y/n>\033[0m" << endl;
         cout << "\033[1;36m" << PROMPT_STRING <<"\033[0m";
         cin >> cmd0;
@@ -58,12 +64,12 @@ int main ( int argc, char *argv[] ) {
             cout << "\033[1;33m==>  Check Your Command !\033[0m" << endl;
         }
         else{
-          cout << "\033[1;31mNon Compatible Command !\033[0m" << endl;
+          cout << "\033[5m\033[1;31mNon Compatible Command !\033[0m" << endl;
           return 0;
         }
       }
 
-      else cout << "\033[1;31mERR0R! \033[0m" << endl;
+      else cout << "\033[5m\033[1;31mERR0R! \033[0m" << endl;
     }
-    cout << "\033[1;31mSHOULD NEVER BE HERE \033[0m" << endl;
+    cout << "\033[5m\033[1;31mSHOULD NEVER BE HERE \033[0m" << endl;
 }

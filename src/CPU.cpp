@@ -9,24 +9,28 @@ CPU :: CPU(){
   CPU_path = "nono";
   program_path = "NULL";
   active_core = 0;
+  valid_print = false;
+}
+
+CPU :: ~CPU(){};
+
+void CPU ::  get_cpu_path(string cpu_path){
+  CPU_path = cpu_path;
 }
 
 double CPU :: write(){
   if (valid){
-    cout << -1998 << endl;
     return -1998;
   }
   else{
     out_result = reg.write();
-    reg.print_reg();
-    cout << out_result << endl;
     return out_result;
   }
 }
 
 void CPU :: simulate(){
   double res;
-
+  print_details();
   for(unsigned int i = 0; i < frequency ; i++){
     program.get_path(program_path);
     program.get_instruction();
@@ -35,6 +39,8 @@ void CPU :: simulate(){
       core[active_core].valid = false;
       if (active_core < nb_core-1){
         active_core += 1;
+        cout << "\033[5m\033[1;35mActive core:"<< "\t"<< "\t"<< active_core+1 << "\033[0m" << endl;
+        cout << endl;
         core[active_core].valid = true;
       }
       else
@@ -43,17 +49,16 @@ void CPU :: simulate(){
 
     if (core[active_core].valid){
       program.assignment();
-      core[active_core].print();
+      if (valid_print)  {cout << "Instruction "<< "\t"<< "Result"<< endl;
+                        cout << "------------------------------------" << endl;}
+      if (valid_print)  cout << program.instruction.instruction << "\t";
       res = core[active_core].calculate(program.instruction.operation,program.instruction.operand1,program.instruction.operand2);
+      if (valid_print)  {cout << res << endl; cout<< endl;}
+
       data_in.data = res;
       reg.read(data_in);
-      reg.print_reg();
     }
   }
-}
-
-void CPU ::  get_cpu_path(string cpu_path){
-  CPU_path = cpu_path;
 }
 
 void CPU :: initialisation(){
@@ -97,15 +102,22 @@ void CPU :: creat_cores(){
   core[0].valid = true;
 }
 
-void CPU :: print(){
-  cout << CPU_path << endl;
-  cout << label << endl;
-  cout << nb_core << endl;
-  cout << frequency << endl;
-  cout << program_path << endl;
-}
-
 bool CPU :: isEmpty(){
   valid = reg.empty_reg();
   return valid;
+}
+
+void CPU :: valid_print_details(){
+  valid_print = true;
+}
+
+void CPU :: print_details(){
+  if (valid_print){
+    cout << "\033[31;1m____________________________________\033[0m" << endl;
+    cout << "\033[34;1mCPU Label: "<< "\t\t\t"<<label << "\033[0m"<< endl;
+    cout << "\033[34;1mNumber of cores: "<< "\t\t"<< nb_core << "\033[0m"<< endl;
+    cout << "\033[34;1mFrequency: "<< "\t\t\t"<< frequency << "\033[0m"<< endl;
+    cout << "\033[5m\033[1;35mActive core:"<< "\t\t\t"<< active_core+1 << "\033[0m"<< endl;
+    cout << endl;
+  }
 }

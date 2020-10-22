@@ -16,21 +16,23 @@ private:
   string source;
   string label;
   int width;
-  //int counter=0;
+  bool valid_print;
   vector<double> pending_values;
   vector<double> ready_values;
   vector<double> intermediate;
   bool valid;
 public:
   BUS();
+  ~BUS();
   void get_bus_path(string bus_path);
   void initialisation();
   void simulate();
-  void print();
   vector <double> write_in_mem();
   void read_from_cpu(vector <double> vect);
   bool bus_is_empty();
   unsigned int get_width();
+  void print_details();
+  void valid_print_details();
 };
 
 

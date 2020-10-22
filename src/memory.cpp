@@ -19,17 +19,12 @@ MEMORY::MEMORY(){
 
   }
 
-// MEMORY::~MEMORY() {
-//   printf("called destruction\n");
-//   delete data;
-//   delete cache;
-// }
+MEMORY::~MEMORY() {}
 
 
 
 bool MEMORY::empty() { return count == 0; }
 bool MEMORY::full() { return count == this->size; }
-
 
 bool MEMORY::add(double &t) {
     if(full()) {
@@ -48,7 +43,7 @@ bool MEMORY::add(double &t) {
 
 bool MEMORY::remove() { //read
     if ( empty() ) {
-      printf("mem is empty \n");
+      printf("Memory is empty \n");
       data_valid = false;
       return false;
     }
@@ -61,11 +56,10 @@ bool MEMORY::remove() { //read
     }
   }
 
-
 void MEMORY::simulate(){
-
+    print_details();
     if(counter==0){
-      cout << "simulation mémoire en cours" << endl;
+
       if(sauv_bus.size()!=0){
           for(double elm : sauv_bus) add(elm);
             sauv_bus.clear();
@@ -73,7 +67,6 @@ void MEMORY::simulate(){
     }
     this->counter = (this->counter+1)  %(access) ;
 }
-
 
 void MEMORY::get_mem_path(string mem_path){
   MEM_path = mem_path;
@@ -111,25 +104,6 @@ void MEMORY::initialisation(){
 
 }
 
-void MEMORY :: print(){
-  cout << "path : " << MEM_path << endl;
-  cout << "source : " << source << endl;
-  cout << "label : " << label << endl;
-  cout <<"size : " << size << endl;
-  cout <<"access : " <<access << endl;
-}
-
-void MEMORY :: print_cache(){
-  cout << "cache : " << cache[0] << endl;
-
-}
-
-// void MEMORY :: read(BUS bus) {
-//   if(react){
-//   for (double elm : bus.ready_values) add(elm);
-//   }
-// }
-
 double MEMORY::write_in_disp(){
   return *cache;
 }
@@ -150,14 +124,20 @@ string MEMORY::get_label(){
   return label;
 }
 
-//il faudra une classe qui lira le fichier texte et en fonction du nombre de composants fera appel aux classes
-//rethink about that
-//invalid data value = bool true false
-//fonction is_value_valid
-//allocation mémoire dans le constructeur
-//bus écrit dans mémoire
-//mémoire lis du bus
-//cpu ecrit dans bus
-//bus lis de cpu
-//display lis de la mem
-//mem ecrit dans display
+int MEMORY :: get_counter(){
+  return counter;
+}
+
+void MEMORY :: valid_print_details(){
+  valid_print = true;
+}
+
+void MEMORY :: print_details(){
+  if (valid_print){
+    cout << "\033[34;1mMEMORY Label: "<< "\t\t\t"<<label << "\033[0m"<< endl;
+    cout << "\033[34;1mAccess time: "<< "\t\t\t"<< access << "\033[0m"<< endl;
+    cout << "\033[34;1mNumber of free places: "<< "\t\t"<< size - count << "\033[0m"<< endl;
+    cout << "\033[34;1mNumber of unread values: "<< "\t"<< counter << "\033[0m"<< endl;
+    cout << endl;
+  }
+}

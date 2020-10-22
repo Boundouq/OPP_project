@@ -31,10 +31,11 @@ private:
   bool data_valid;
   bool react;
   unsigned int num_mem;
+  bool valid_print;
 public:
 
   MEMORY();
-  //~MEMORY();
+  ~MEMORY();
   bool empty();
   bool full();
   bool add(double &t);
@@ -42,14 +43,14 @@ public:
   void get_mem_path(string mem_path);
   void initialisation();
   string get_label();
+  int get_counter();
   double write_in_disp();
   void simulate();
-  void print();
-  void print_cache();
   void num_mem_aff(unsigned int t);
   unsigned int num_mem_return();
-  //void read(BUS bus);
   void read_from_bus(vector <double> element);
+  void print_details();
+  void valid_print_details();
 };
 
 #endif

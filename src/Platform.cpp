@@ -3,10 +3,13 @@
 Platform :: Platform(string pth){
   path = "NULL";
   nb_cpu_bus_mem = 0;
+  valid_print = false;
   get_path(pth);
   get_nb_of_each_element();
   creat_elements();
 }
+
+Platform :: ~ Platform(){}
 
 void Platform :: get_path(string pth){
   path = pth;
@@ -33,7 +36,6 @@ void Platform :: get_nb_of_each_element(){
 
 }
 
-
 void Platform :: creat_elements(){
   string :: size_type n;
   int i = 0;
@@ -45,65 +47,43 @@ void Platform :: creat_elements(){
 
   for (auto elm: elements_path){
     n = elm.find("cpu");
-    if (n == string :: npos) {
-      cout << "not found\n";
-    }
-    else {
+    if (n != string :: npos) {
       cpus[i].get_cpu_path(elm);
       cpus[i].initialisation();
       cpus[i].creat_cores();
       i++;
     }
   }
-  for (unsigned int j = 0; j < nb_cpu_bus_mem ;j++){
-    cpus[j].print();
-  }
-
 
   i=0;
 
   for (auto elm: elements_path){
     n = elm.find("bus");
 
-    if (n == string :: npos) {
-      cout << "not found bus\n";
-    }
-    else {
+    if (n != string :: npos) {
       busses[i].get_bus_path(elm);
       busses[i].initialisation();
       i++;
     }
-  }
-  for (unsigned int j = 0; j < nb_cpu_bus_mem ;j++){
-    busses[j].print();
   }
 
   i=0;
 
   for (auto elm: elements_path){
     n = elm.find("mem");
-    if (n == string :: npos) {
-      cout << "not found mem\n";
-    }
-    else {
+    if (n != string :: npos) {
       mems[i].get_mem_path(elm);
       mems[i].initialisation();
       mems[i].num_mem_aff(i);
       i++;
     }
   }
-  for (unsigned int j = 0; j < nb_cpu_bus_mem ;j++){
-    mems[j].print();
-  }
 
   i=0;
 
   for (auto elm: elements_path){
     n = elm.find("display");
-    if (n == string :: npos) {
-      cout << "not found display\n";
-    }
-    else {
+    if (n != string :: npos) {
       disps[i].get_disp_path(elm);
       disps[i].initialisation();
       for(unsigned int k=0;k<nb_cpu_bus_mem;k++){
@@ -112,12 +92,10 @@ void Platform :: creat_elements(){
       i++;
     }
   }
-  for (unsigned int j = 0; j < nb_disp ;j++){
-    disps[j].print();
-  }
 }
 
 void Platform :: simulate(){
+  print_details();
   for (unsigned int i = 0; i<nb_cpu_bus_mem; i++){
     cpus[i].simulate();
     link_cpu_bus(i);
@@ -132,42 +110,66 @@ void Platform :: simulate(){
       }
     }
   }
-
 }
 
-void Platform::link_mem_disp(int i){
+void Platform :: link_mem_disp(int i){
   double d;
   unsigned int u;
     u = disps[i].indice_mem_return();
     while(1){
       if(mems[u].empty()) break;
       else {
-        mems[u].remove();
-        d=mems[u].write_in_disp();
-        disps[i].read_from_mem(d);
+        if (disps[i].get_counter() == 0){
+          mems[u].remove();
+          d=mems[u].write_in_disp();
+          disps[i].read_from_mem(d);
+        }
+        else return;
       }
-
     }
     return;
-
-
 }
 
-
-void Platform::link_bus_mem(int i){
+void Platform :: link_bus_mem(int i){
     vector <double> v;
-    if(!busses[i].bus_is_empty()){
-    v = busses[i].write_in_mem();
-    mems[i].read_from_bus(v);
+    if (mems[i].get_counter() == 0){
+      if(!busses[i].bus_is_empty()){
+        v = busses[i].write_in_mem();
+        mems[i].read_from_bus(v);
+      }
+      else return;
     }
     else mems[i].read_from_bus(v);
   }
 
-void Platform::link_cpu_bus(int i){
+void Platform :: link_cpu_bus(int i){
   vector<double> v;
   for(unsigned int j =0;j<busses[i].get_width();j++){
-    if(!cpus[i].isEmpty()) v.push_back(cpus[i].write());
-    else return;
+    if(!cpus[i].isEmpty()){
+       v.push_back(cpus[i].write());
+    }
+    else break;
   }
+  //for (double elm:v) cout << "input " << elm << endl;
   busses[i].read_from_cpu(v);
+  return;
+}
+
+void Platform :: valid_print_details(){
+  valid_print = true;
+  for (unsigned int i = 0; i<nb_cpu_bus_mem; i++){
+    cpus[i].valid_print_details();
+    busses[i].valid_print_details();
+    mems[i].valid_print_details();
+  }
+  for (unsigned int i = 0; i<nb_disp; i++){
+    disps[i].valid_print_details();
+  }
+}
+
+void Platform :: print_details(){
+  if (valid_print){
+    cout << "\033[31;1mPlatform 1\033[0m" << endl;
+    cout << endl;
+  }
 }

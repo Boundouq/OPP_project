@@ -24,14 +24,17 @@ class CPU : public INTERFACE {
     CPU_program program;
     Data data_in;
     bool valid;
+    bool valid_print;
     double out_result;
   public:
     CPU();
+    ~CPU();
     void get_cpu_path(string cpu_path);
     double write();
     void simulate();
     bool isEmpty();
     void initialisation();
     void creat_cores();
-    void print();
+    void print_details();
+    void valid_print_details();
 };

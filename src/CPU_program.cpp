@@ -40,5 +40,5 @@ void CPU_program :: get_instruction(){
 
 void CPU_program :: assignment(){
   instruction.getOperation_Operands();
-  instruction.print();
+  //instruction.print();
 }
