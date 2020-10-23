@@ -7,6 +7,7 @@
 #include <sstream>
 #include <vector>
 #include <fstream>
+#include <algorithm>
 #include"bus.hpp"
 #include "interface.hpp"
 

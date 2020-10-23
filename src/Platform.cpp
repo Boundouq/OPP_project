@@ -169,7 +169,7 @@ void Platform :: valid_print_details(){
 
 void Platform :: print_details(){
   if (valid_print){
-    cout << "\033[31;1mPlatform 1\033[0m" << endl;
+    cout << "\033[4m\033[31;1mPlatform 1\033[0m" << endl;
     cout << endl;
   }
 }

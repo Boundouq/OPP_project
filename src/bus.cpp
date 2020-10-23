@@ -32,11 +32,23 @@ void BUS::initialisation(){
 
     file.open(BUS_path);
     getline(file, caract);
-    if (caract == "TYPE: BUS"){
+    caract.erase(std::remove(caract.begin(),caract.end(),'\t'),caract.end());
+    while (n != caract.size()) {
+      n = caract.find(":");
+      if (caract[n+1] == ' ') caract.erase(caract.begin()+n+1);
+      else break;
+    }
+    if (caract == "TYPE:BUS"){
       while (getline(file, caract)){
+        caract.erase(std::remove(caract.begin(),caract.end(),'\t'),caract.end());
+        while (n != caract.size()) {
+          n = caract.find(":");
+          if (caract[n+1] == ' ') caract.erase(caract.begin()+n+1);
+          else break;
+        }
         if(caract.find("LABEL") == 0){
           n = caract.find(":");
-          label = caract.substr(n+2);
+          label = caract.substr(n+1);
         }
         else if(caract.find("WIDTH") == 0){
           n = caract.find(":");
@@ -45,7 +57,7 @@ void BUS::initialisation(){
 
         else if(caract.find("SOURCE") == 0){
           n = caract.find(":");
-          source = caract.substr(n+2);
+          source = caract.substr(n+1);
         }
         else cout << "NOT COMPATIBLE FILE" << endl;
       }

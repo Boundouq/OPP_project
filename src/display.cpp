@@ -24,6 +24,10 @@ void DISPLAY::simulate(){
   }
   this->counter = (this->counter+1)  %(refresh) ;
   cache_disp.clear();
+  if (valid_print){
+    cout << "\033[31;1m____________________________________\033[0m" << endl;
+    cout << endl;
+  }
 }
 
 void DISPLAY::get_disp_path(string disp_path){
@@ -37,15 +41,27 @@ void DISPLAY::initialisation(){
 
   file.open(DISP_path);
   getline(file, caract);
-  if (caract == "TYPE: DISPLAY"){
+  caract.erase(std::remove(caract.begin(),caract.end(),'\t'),caract.end());
+  while (n != caract.size()) {
+    n = caract.find(":");
+    if (caract[n+1] == ' ') caract.erase(caract.begin()+n+1);
+    else break;
+  }
+  if (caract == "TYPE:DISPLAY"){
     while (getline(file, caract)){
+      caract.erase(std::remove(caract.begin(),caract.end(),'\t'),caract.end());
+      while (n != caract.size()) {
+        n = caract.find(":");
+        if (caract[n+1] == ' ') caract.erase(caract.begin()+n+1);
+        else break;
+      }
       if(caract.find("REFRESH") == 0){
         n = caract.find(":");
         stringstream(caract.substr(n+1)) >> refresh;
       }
       else if(caract.find("SOURCE") == 0){
         n = caract.find(":");
-        source = caract.substr(n+2);
+        source = caract.substr(n+1);
       }
       else cout << "NOT COMPATIBLE FILE" << endl;
     }

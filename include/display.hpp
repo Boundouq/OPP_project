@@ -4,6 +4,7 @@
 #include <sstream>
 #include <vector>
 #include <fstream>
+#include <algorithm>
 #include "memory.hpp"
 #include "interface.hpp"
 

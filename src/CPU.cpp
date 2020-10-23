@@ -39,8 +39,10 @@ void CPU :: simulate(){
       core[active_core].valid = false;
       if (active_core < nb_core-1){
         active_core += 1;
-        cout << "\033[5m\033[1;35mActive core:"<< "\t"<< "\t"<< active_core+1 << "\033[0m" << endl;
-        cout << endl;
+        if (valid_print){
+          cout << "\033[5m\033[1;35mActive core:"<< "\t"<< "\t"<< active_core+1 << "\033[0m" << endl;
+          cout << endl;
+        }
         core[active_core].valid = true;
       }
       else
@@ -68,11 +70,23 @@ void CPU :: initialisation(){
 
   file.open(CPU_path);
   getline(file, caract);
-  if (caract == "TYPE: CPU"){
+  caract.erase(std::remove(caract.begin(),caract.end(),'\t'),caract.end());
+  while (n != caract.size()) {
+    n = caract.find(":");
+    if (caract[n+1] == ' ') caract.erase(caract.begin()+n+1);
+    else break;
+  }
+  if (caract == "TYPE:CPU"){
     while (getline(file, caract)){
+      caract.erase(std::remove(caract.begin(),caract.end(),'\t'),caract.end());
+      while (n != caract.size()) {
+        n = caract.find(":");
+        if (caract[n+1] == ' ') caract.erase(caract.begin()+n+1);
+        else break;
+      }
       if(caract.find("LABEL") == 0){
         n = caract.find(":");
-        label = caract.substr(n+2);
+        label = caract.substr(n+1);
       }
       else if(caract.find("CORES") == 0){
         n = caract.find(":");
@@ -84,9 +98,10 @@ void CPU :: initialisation(){
       }
       else if(caract.find("PROGRAM") == 0){
         n = caract.find(":");
-        program_path = "" + caract.substr(n+2);
+      //if (caract.substr(n+2) = "\t" ||caract.substr(n+2) = " " )
+        program_path = "" + caract.substr(n+1);
       }
-      else cout << "NOT COMPATIBLE FILE" << endl;
+      //else cout << "NOT COMPATIBLE FILE" << endl;
     }
   }
   else cout << "NOT COMPATIBLE PATH" << endl;

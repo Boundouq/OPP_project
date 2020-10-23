@@ -6,6 +6,7 @@
 #include <sstream>
 #include <vector>
 #include <fstream>
+#include <algorithm>
 #include "interface.hpp"
 
 using namespace std;

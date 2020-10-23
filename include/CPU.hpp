@@ -3,6 +3,7 @@
 #include <cstring>
 #include <sstream>
 #include <vector>
+#include <algorithm>
 #include "Core.hpp"
 #include "CPU_register.hpp"
 #include "CPU_program.hpp"
