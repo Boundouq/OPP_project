@@ -4,18 +4,32 @@ Core :: Core(){
   result = 0;
 }
 
-double Core :: calculate(string operation, double op1, double op2){
-  if (operation == "ADD")
-      return result = op1 + op2 ;
-  else if (operation == "SUB")
-      return result = op1 - op2 ;
-  else if (operation == "MUL")
-      return result = op1 * op2 ;
-  else if (operation == "DIV")
-      return result = op1 / op2 ;
+double Core :: calculate(string operation,int nb_op, vector <double> op){
+  double results = op[0];
+  if (operation == "ADD"){
+    for (int i =1; i < nb_op; i++)
+      results += op[i];
+    return results;
+  }
+  else if (operation == "SUB"){
+    for (int i =1; i < nb_op; i++)
+      results -= op[i];
+    return results;
+  }
+  else if (operation == "MUL"){
+    for (int i =1; i < nb_op; i++)
+      results *= op[i];
+    return results;
+  }
+  else if (operation == "DIV"){
+    for (int i =1; i < nb_op; i++)
+      results /= op[i];
+    return results;
+  }
   else if (operation == "NOP")
-      return result = 0 ;
-  else return result = -1998;
+    return results= 0 ;
+  else return results = -1998;
+
 }
 
 void Core :: num(unsigned int i){

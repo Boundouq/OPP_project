@@ -54,7 +54,7 @@ void CPU :: simulate(){
       if (valid_print)  {cout << "Instruction "<< "\t"<< "Result"<< endl;
                         cout << "------------------------------------" << endl;}
       if (valid_print)  cout << program.instruction.instruction << "\t";
-      res = core[active_core].calculate(program.instruction.operation,program.instruction.operand1,program.instruction.operand2);
+      res = core[active_core].calculate(program.instruction.operation,program.instruction.nb_operands,program.instruction.operands);
       if (valid_print)  {cout << res << endl; cout<< endl;}
 
       data_in.data = res;

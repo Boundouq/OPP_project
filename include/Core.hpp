@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -10,7 +11,7 @@ class Core{
   public:
     bool valid;
     Core();
-    double calculate(string operation, double op1, double op2);
+    double calculate(string operation, int nb_op, vector <double> op);
     void num(unsigned int i);
     void print();
 };
