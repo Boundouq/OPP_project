@@ -5,3 +5,5 @@ testdata/bus2.txt
 testdata/cpu1.txt
 testdata/cpu2.txt
 testdata/display.txt
+testdata/serial1.txt
+testdata/serial2.txt

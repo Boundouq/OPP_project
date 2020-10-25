@@ -52,6 +52,6 @@ $(TARGET):  $(OBJECT)
 # files and *~ backup files:
 #
 clean:
-	$(RM) $(TARGET)
+	$(RM) $(TARGET) *.txt
 #$(SRCDIR)/*.o
 #*~

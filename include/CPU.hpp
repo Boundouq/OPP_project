@@ -27,6 +27,7 @@ class CPU : public INTERFACE {
     bool valid;
     bool valid_print;
     double out_result;
+    vector<string> buffer;
   public:
     CPU();
     ~CPU();
@@ -38,4 +39,5 @@ class CPU : public INTERFACE {
     void creat_cores();
     void print_details();
     void valid_print_details();
+    vector<string> debug();
 };

@@ -3,7 +3,7 @@
 Platform :: Platform(string pth){
   path = "NULL";
   nb_cpu_bus_mem = 0;
-  valid_print = false;
+  valid_print = debug_cpu = false;
   get_path(pth);
   get_nb_of_each_element();
   creat_elements();
@@ -43,7 +43,7 @@ void Platform :: creat_elements(){
   mems= new MEMORY [nb_cpu_bus_mem];
   busses= new BUS [nb_cpu_bus_mem];
   disps= new DISPLAY [nb_disp];
-
+  serials = new SERIAL [nb_cpu_bus_mem];
 
   for (auto elm: elements_path){
     n = elm.find("cpu");
@@ -92,12 +92,27 @@ void Platform :: creat_elements(){
       i++;
     }
   }
+
+  i=0;
+
+  for (auto elm: elements_path){
+    n = elm.find("serial");
+    if (n != string :: npos) {
+      serials[i].get_serial_path(elm);
+      serials[i].initialisation();
+      i++;
+    }
+  }
 }
 
 void Platform :: simulate(){
   print_details();
   for (unsigned int i = 0; i<nb_cpu_bus_mem; i++){
     cpus[i].simulate();
+
+    debug_option(i);
+    serials[i].simulate();
+
     link_cpu_bus(i);
     busses[i].simulate();
     link_bus_mem(i);
@@ -110,6 +125,7 @@ void Platform :: simulate(){
       }
     }
   }
+  debug_cpu = false;
 }
 
 void Platform :: link_mem_disp(int i){
@@ -155,12 +171,21 @@ void Platform :: link_cpu_bus(int i){
   return;
 }
 
+void Platform :: debug_option(int i){
+  vector<string> v;
+  if (debug_cpu){
+    v = cpus[i].debug();
+    serials[i].read_buffer(v);
+  }
+}
+
 void Platform :: valid_print_details(){
   valid_print = true;
   for (unsigned int i = 0; i<nb_cpu_bus_mem; i++){
     cpus[i].valid_print_details();
     busses[i].valid_print_details();
     mems[i].valid_print_details();
+    serials[i].valid_print_details();
   }
   for (unsigned int i = 0; i<nb_disp; i++){
     disps[i].valid_print_details();
@@ -172,4 +197,8 @@ void Platform :: print_details(){
     cout << "\033[4m\033[31;1mPlatform 1\033[0m" << endl;
     cout << endl;
   }
+}
+
+void Platform :: active_debug_option(){
+  debug_cpu = true;
 }

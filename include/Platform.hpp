@@ -7,6 +7,7 @@
 #include "bus.hpp"
 #include "display.hpp"
 #include "interface.hpp"
+#include "Serial.hpp"
 
 using namespace std;
 
@@ -17,10 +18,13 @@ class Platform : public INTERFACE{
     unsigned int nb_disp;
     vector<string> elements_path;
     bool valid_print;
+    bool debug_cpu;
     CPU* cpus;
     MEMORY * mems;
     BUS* busses;
     DISPLAY* disps;
+    SERIAL* serials;
+
 
   public:
     Platform(string pth);
@@ -32,6 +36,8 @@ class Platform : public INTERFACE{
     void link_mem_disp(int i);
     void link_bus_mem(int i);
     void link_cpu_bus(int i);
+    void debug_option(int i);
     void valid_print_details();
     void print_details();
+    void active_debug_option();
 };

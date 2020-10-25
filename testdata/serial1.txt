@@ -1,0 +1,4 @@
+TYPE: SERIAL
+LABEL: My serial 1
+SOURCE: Main processing unit
+TARGET: my_serial_1.txt

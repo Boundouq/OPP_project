@@ -56,7 +56,7 @@ void CPU :: simulate(){
       if (valid_print)  cout << program.instruction.instruction << "\t";
       res = core[active_core].calculate(program.instruction.operation,program.instruction.nb_operands,program.instruction.operands);
       if (valid_print)  {cout << res << endl; cout<< endl;}
-
+      buffer.push_back(program.instruction.instruction + "= " + to_string(res));
       data_in.data = res;
       reg.read(data_in);
     }
@@ -98,7 +98,6 @@ void CPU :: initialisation(){
       }
       else if(caract.find("PROGRAM") == 0){
         n = caract.find(":");
-      //if (caract.substr(n+2) = "\t" ||caract.substr(n+2) = " " )
         program_path = "" + caract.substr(n+1);
       }
       //else cout << "NOT COMPATIBLE FILE" << endl;
@@ -135,4 +134,11 @@ void CPU :: print_details(){
     cout << "\033[5m\033[1;35mActive core:"<< "\t\t\t"<< active_core+1 << "\033[0m"<< endl;
     cout << endl;
   }
+}
+
+vector <string> CPU :: debug(){
+  vector <string> s;
+  s =  buffer;
+  buffer.clear();
+  return s;
 }
