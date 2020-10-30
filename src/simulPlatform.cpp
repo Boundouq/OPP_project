@@ -4,7 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "Platform.hpp"
+#include "PLATFORMS.hpp"
 
 //Programme principal
 int main ( int argc, char *argv[] ) {
@@ -30,7 +30,7 @@ int main ( int argc, char *argv[] ) {
           stringstream(argv[2]) >> nb_it;
         }
 
-        Platform Pf(file_path);
+        PLATFORMS Pf(file_path);
         file.open(file_path);
         cout << "\033[1;32mDO YOU WANNA SEE SIMULATION DETAILS ? <y/n>\033[0m" << endl;
         cout << "\033[1;36m" << PROMPT_STRING <<"\033[0m";
@@ -52,7 +52,6 @@ int main ( int argc, char *argv[] ) {
           cout << "\033[1;36m" << PROMPT_STRING <<"\033[0m";
           cin >> debug;
           cout <<endl;
-          cout << "gggg" << debug << endl;
           if (debug != "y" && debug != "n") {
             cout << "\033[5m\033[1;31mNon Compatible Command !\033[0m" << endl;
             return -1;

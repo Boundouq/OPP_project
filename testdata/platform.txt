@@ -1,9 +1,12 @@
 testdata/mem1.txt
 testdata/mem2.txt
+testdata/rom1.txt
+testdata/rom2.txt
 testdata/bus1.txt
 testdata/bus2.txt
 testdata/cpu1.txt
 testdata/cpu2.txt
+testdata/display2.txt
 testdata/display.txt
 testdata/serial1.txt
 testdata/serial2.txt

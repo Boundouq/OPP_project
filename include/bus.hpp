@@ -16,6 +16,7 @@ private:
   string BUS_path;
   string source;
   string label;
+  string priority;
   int width;
   bool valid_print;
   vector<double> pending_values;

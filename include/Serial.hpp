@@ -13,6 +13,7 @@ class SERIAL : public INTERFACE {
     string Serial_path;
     string label;
     string source;
+    string priority;
     string target;
     bool valid_print;
     vector <string> buffer;

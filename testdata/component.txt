@@ -1,0 +1,3 @@
+TYPE: PLATFORM
+LABEL: Top platform
+COMPONENT: testdata/platform.txt

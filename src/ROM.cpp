@@ -1,16 +1,13 @@
-#include "memory.hpp"
+#include "ROM.hpp"
 
 
 
-  //void memory::read(){}
-  //void memory::write_in_mem(){}
 
-MEMORY::MEMORY(){
+ROM::ROM(){
     MEM_path = "empty";
     source= "NULL";
     label="NULL";
     size = 64;
-    access = 0;
     data=new double[size];
     cache = new double[1];
     data_valid = true;
@@ -19,14 +16,15 @@ MEMORY::MEMORY(){
 
   }
 
-MEMORY::~MEMORY() {}
+ROM::~ROM() {}
 
 
 
-bool MEMORY::empty() { return count == 0; }
-bool MEMORY::full() { return count == this->size; }
+bool ROM::empty() { return count == 0; }
+bool ROM::full() { return count == this->size; }
 
-bool MEMORY::add(double &t) {
+
+bool ROM::add(double &t) {
     if(full()) {
       data[tail] = t;
       tail = (tail + 1) % this->size;
@@ -41,39 +39,21 @@ bool MEMORY::add(double &t) {
   }
 }
 
-bool MEMORY::remove() { //read
-    if ( empty() ) {
-      printf("Memory is empty \n");
-      data_valid = false;
-      return false;
-    }
-    else {
-      *cache = data[head];
-      data[head] = empty_item;
-      head = (head + 1) % this->size;
-      count--;
-      return true;
-    }
-  }
 
-void MEMORY::simulate(){
+void ROM::simulate(){
     print_details();
-    if(counter==0){
 
-      if(sauv_bus.size()!=0){
-          for(double elm : sauv_bus) add(elm);
-            sauv_bus.clear();
-      }
-    }
-    this->counter = (this->counter+1)  %(access) ;
+
+
+      *cache = data[counter];
+
 }
 
-
-void MEMORY::get_mem_path(string mem_path){
+void ROM::get_mem_path(string mem_path){
   MEM_path = mem_path;
 }
 
-void MEMORY::initialisation(){
+void ROM::initialisation(){
   fstream file;
   string caract;
   string :: size_type n=0;
@@ -87,7 +67,7 @@ void MEMORY::initialisation(){
     if (caract[n+1] == ' ') caract.erase(caract.begin()+n+1);
     else break;
   }
-  if (caract == "TYPE:MEMORY"){
+  if (caract == "TYPE:ROM"){
     while (getline(file, caract)){
       caract.erase(std::remove(caract.begin(),caract.end(),'\t'),caract.end());
       while (n != caract.size()) {
@@ -99,21 +79,13 @@ void MEMORY::initialisation(){
         n = caract.find(":");
         label = caract.substr(n+1);
       }
-      else if(caract.find("SIZE") == 0){
-        n = caract.find(":");
-        stringstream(caract.substr(n+1)) >> this->size;
-      }
-      else if(caract.find("ACCESS") == 0){
-        n = caract.find(":");
-        stringstream(caract.substr(n+1)) >> access;
-      }
-      else if(caract.find("SOURCE") == 0){
-        n = caract.find(":");
-        source = caract.substr(n+1);
-      }
       else if(caract.find("PRIORITY") == 0){
         n = caract.find(":");
         priority = caract.substr(n+1);
+      }
+      else if(caract.find("SIZE") == 0){
+        n = caract.find(":");
+        stringstream(caract.substr(n+1)) >> this->size;
       }
       else if(caract.find("INIT") == 0){
         n = caract.find(":");
@@ -140,42 +112,42 @@ void MEMORY::initialisation(){
   else cout << "NOT COMPATIBLE PATH" << endl;
 }
 
-double MEMORY::write_in_disp(){
+double ROM::write_in_disp(){
   return *cache;
 }
 
-void MEMORY::num_mem_aff(unsigned int t){
+void ROM::num_mem_aff(unsigned int t){
   num_mem = t;
 }
 
-
-unsigned int MEMORY::num_mem_return(){
+unsigned int ROM::num_mem_return(){
   return num_mem;
 }
 
-void MEMORY::read_from_bus(vector <double> element){
-   sauv_bus = element;
-}
 
-string MEMORY::get_label(){
+string ROM::get_label(){
   return label;
 }
 
-int MEMORY :: get_counter(){
+int ROM :: get_counter(){
   return counter;
 }
 
-void MEMORY :: valid_print_details(){
+void ROM :: increment_counter(){
+  counter = (counter+1)  %size ;
+}
+
+void ROM :: valid_print_details(){
   valid_print = true;
 }
 
-void MEMORY :: print_details(){
+void ROM :: print_details(){
   if (valid_print){
-    cout << "\033[34;1mMEMORY Label: "<< "\t\t\t"<<label << "\033[0m"<< endl;
-    cout << "\033[34;1mMEMORY Priority: "<< "\t\t"<<priority << "\033[0m"<< endl;
-    cout << "\033[34;1mAccess time: "<< "\t\t\t"<< access << "\033[0m"<< endl;
+    cout << "\033[34;1mROM Label: "<< "\t\t\t"<<label << "\033[0m"<< endl;
+    cout << "\033[34;1mROM Priority: "<< "\t\t\t"<<priority << "\033[0m"<< endl;
     cout << "\033[34;1mNumber of free places: "<< "\t\t"<< size - count << "\033[0m"<< endl;
-    cout << "\033[34;1mNumber of unread values: "<< "\t"<< counter << "\033[0m"<< endl;
+    cout << "\033[34;1mNumber of unread values: "<< "\t"<< size - counter -1 << "\033[0m"<< endl;
+    cout << "\033[34;1mReading value position: "<< "\t"<< counter << "\033[0m"<< endl;
     cout << endl;
   }
 }

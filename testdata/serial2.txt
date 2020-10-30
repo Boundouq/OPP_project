@@ -2,3 +2,4 @@ TYPE: SERIAL
 LABEL: My serial 2
 SOURCE: Coproc
 TARGET: my_serial_2.txt
+PRIORITY: 2

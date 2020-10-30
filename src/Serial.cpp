@@ -17,7 +17,7 @@ void SERIAL ::  get_serial_path(string serial_path){
 void SERIAL :: initialisation(){
   fstream file;
   string caract;
-  string :: size_type n;
+  string :: size_type n=0;
 
   file.open(Serial_path);
   getline(file, caract);
@@ -38,6 +38,10 @@ void SERIAL :: initialisation(){
       if(caract.find("LABEL") == 0){
         n = caract.find(":");
         label = caract.substr(n+1);
+      }
+      else if(caract.find("PRIORITY") == 0){
+        n = caract.find(":");
+        priority = caract.substr(n+1);
       }
       else if(caract.find("SOURCE") == 0){
         n = caract.find(":");
@@ -60,6 +64,7 @@ void SERIAL:: valid_print_details(){
 void SERIAL :: print_details(){
   if (valid_print){
     cout << "\033[34;1mSERIAL Label: "<< "\t\t\t"<<label << "\033[0m"<< endl;
+    cout << "\033[34;1mSERIAL Priority: "<< "\t\t"<<priority << "\033[0m"<< endl;
     cout << "\033[34;1mSource: "<< "\t\t\t"<< source << "\033[0m"<< endl;
     cout << "\033[34;1mTarget: "<< "\t\t\t"<< target << "\033[0m"<< endl;
     cout << endl;

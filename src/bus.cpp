@@ -28,7 +28,7 @@ void BUS::get_bus_path(string bus_path){
 void BUS::initialisation(){
     fstream file;
     string caract;
-    string :: size_type n;
+    string :: size_type n=0;
 
     file.open(BUS_path);
     getline(file, caract);
@@ -58,6 +58,10 @@ void BUS::initialisation(){
         else if(caract.find("SOURCE") == 0){
           n = caract.find(":");
           source = caract.substr(n+1);
+        }
+        else if(caract.find("PRIORITY") == 0){
+          n = caract.find(":");
+          priority = caract.substr(n+1);
         }
         else cout << "NOT COMPATIBLE FILE" << endl;
       }
@@ -95,6 +99,7 @@ void BUS :: valid_print_details(){
 void BUS :: print_details(){
   if (valid_print){
     cout << "\033[34;1mBUS Label: "<< "\t\t\t"<<label << "\033[0m"<< endl;
+    cout << "\033[34;1mBUS Priority: "<< "\t\t\t"<<priority << "\033[0m"<< endl;
     cout << "\033[34;1mNumber of accesses: "<< "\t\t"<< width << "\033[0m"<< endl;
     cout << endl;
   }

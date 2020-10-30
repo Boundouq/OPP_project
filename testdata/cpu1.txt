@@ -5,3 +5,4 @@ CORES:	 4
 FREQUENCY: 5
 
 PROGRAM:	 testdata/program.txt
+PRIORITY: 1

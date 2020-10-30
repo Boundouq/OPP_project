@@ -66,7 +66,7 @@ void CPU :: simulate(){
 void CPU :: initialisation(){
   fstream file;
   string caract;
-  string :: size_type n;
+  string :: size_type n=0;
 
   file.open(CPU_path);
   getline(file, caract);
@@ -100,6 +100,10 @@ void CPU :: initialisation(){
         n = caract.find(":");
         program_path = "" + caract.substr(n+1);
       }
+      else if(caract.find("PRIORITY") == 0){
+        n = caract.find(":");
+        priority = caract.substr(n+1);
+      }
       //else cout << "NOT COMPATIBLE FILE" << endl;
     }
   }
@@ -128,7 +132,9 @@ void CPU :: valid_print_details(){
 void CPU :: print_details(){
   if (valid_print){
     cout << "\033[31;1m____________________________________\033[0m" << endl;
+    cout << "\033[4m\033[31;1m///       SERIE NUMBER: "<< cpu_num +1<<"        \\\\\\"<<"\033[0m" << endl;
     cout << "\033[34;1mCPU Label: "<< "\t\t\t"<<label << "\033[0m"<< endl;
+    cout << "\033[34;1mCPU Priority: "<< "\t\t\t"<<priority << "\033[0m"<< endl;
     cout << "\033[34;1mNumber of cores: "<< "\t\t"<< nb_core << "\033[0m"<< endl;
     cout << "\033[34;1mFrequency: "<< "\t\t\t"<< frequency << "\033[0m"<< endl;
     cout << "\033[5m\033[1;35mActive core:"<< "\t\t\t"<< active_core+1 << "\033[0m"<< endl;
@@ -141,4 +147,8 @@ vector <string> CPU :: debug(){
   s =  buffer;
   buffer.clear();
   return s;
+}
+
+void CPU :: affect_num_cpu(int i){
+  cpu_num = i;
 }

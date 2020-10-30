@@ -15,6 +15,7 @@ class CPU : public INTERFACE {
   private:
     string CPU_path;
     string label;
+    string priority;
     unsigned int frequency;
     unsigned int nb_core;
     string program_path;
@@ -28,6 +29,7 @@ class CPU : public INTERFACE {
     bool valid_print;
     double out_result;
     vector<string> buffer;
+    int cpu_num;
   public:
     CPU();
     ~CPU();
@@ -40,4 +42,5 @@ class CPU : public INTERFACE {
     void print_details();
     void valid_print_details();
     vector<string> debug();
+    void affect_num_cpu(int i);
 };
