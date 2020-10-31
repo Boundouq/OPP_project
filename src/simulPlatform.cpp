@@ -22,7 +22,7 @@ int main ( int argc, char *argv[] ) {
 
         if ( argc > 3 || (argc < 3) ) {
             cout << "\033[5m\033[1;31mTO MUCH / FEW ARGUMENTS \033[0m" << endl;
-            cout << "\033[1;33mUsage : similPlatform <Platform_path> <number_iteration>\033[0m" << endl;
+            cout << "\033[1;33mUsage : ./similPlatform <Platforms_path> <number_iteration>\033[0m" << endl;
             return(0);
         }
         if(argc == 3) {
