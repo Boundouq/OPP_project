@@ -56,6 +56,7 @@ void PLATFORMS:: creat_elements(){
       platforms[i].get_path(elm);
       platforms[i].get_nb_of_each_element();
       platforms[i].creat_elements();
+      platforms[i].affect_num_platform(i+1);
       i++;
   }
 }

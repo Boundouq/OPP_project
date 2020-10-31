@@ -21,6 +21,7 @@ class Platform : public INTERFACE{
     vector<string> elements_path;
     bool valid_print;
     bool debug_cpu;
+    unsigned int num_platform;
     CPU* cpus;
     MEMORY * mems;
     ROM * roms;
@@ -43,4 +44,5 @@ class Platform : public INTERFACE{
     void valid_print_details();
     void print_details();
     void active_debug_option();
+    void affect_num_platform(int i);
 };

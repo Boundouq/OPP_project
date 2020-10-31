@@ -132,7 +132,6 @@ void Platform :: creat_elements(){
 
 void Platform :: simulate(){
   print_details();
-  cout<<"hey"<< nb_cpu_bus_mem<<endl;
   for (unsigned int i = 0; i<nb_cpu_bus_mem; i++){
 
 
@@ -245,11 +244,19 @@ void Platform :: valid_print_details(){
 
 void Platform :: print_details(){
   if (valid_print){
-    cout << "\033[4m\033[31;1mPlatform 1\033[0m" << endl;
+    cout << "\033[31;1m____________________________________\033[0m" << endl;
+    cout << "\033[31;1m////////////////////////////////////\033[0m" << endl;
+    cout << "\033[31;1m///      PLATFORM NUMBER: "<< num_platform<<"      \\\\\\"<<"\033[0m" << endl;
+    cout << "\033[4m\033[31;1m////////////////////////////////////\033[0m" << endl;
+
     cout << endl;
   }
 }
 
 void Platform :: active_debug_option(){
   debug_cpu = true;
+}
+
+void Platform :: affect_num_platform(int i){
+  num_platform = i;
 }

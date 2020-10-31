@@ -40,7 +40,7 @@ void CPU :: simulate(){
       if (active_core < nb_core-1){
         active_core += 1;
         if (valid_print){
-          cout << "\033[5m\033[1;35mActive core:"<< "\t"<< "\t"<< active_core+1 << "\033[0m" << endl;
+          cout << "\033[5m\033[1;35mActive core:"<< "\t\t\t"<< active_core+1 << "\033[0m" << endl;
           cout << endl;
         }
         core[active_core].valid = true;
